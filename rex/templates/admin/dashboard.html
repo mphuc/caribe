@@ -1,0 +1,156 @@
+{% extends "layout_admin.html" %}
+{% block title %}Dash{% endblock %}
+
+{% block js %}
+{% endblock %}
+	
+
+{% block main %}
+  
+    <div class="col-sm-6">
+      <div class="card card-wallet" data-color="navy">
+         <div class="content">
+            <div class="row">
+               <div class="col-xs-12">
+                  <div class="numbers">
+                     <p>Tổng số thành viên</p>
+                     <span class="usd_balance">{{ (data.total_user) | number_format}}</span> 
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="card-footer">
+            <div class="stats">
+               
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="col-sm-6">
+      <div class="card card-wallet" data-color="navy">
+         <div class="content">
+            <div class="row">
+               <div class="col-xs-12">
+                  <div class="numbers">
+                     <p>Tổng số máy</p>
+                     <span class="usd_balance">{{ (data.total_lending) | number_format}}</span> 
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="card-footer">
+            <div class="stats">
+               
+            </div>
+         </div>
+      </div>
+   </div>
+   
+   </div>
+   <div class="row datatables_trademining">
+     <div class="col-md-12">
+        <h3 class="text-center"  style="margin-top: 50px">Mua máy trong vòng 24h</h3>
+        <div class="material-datatables">
+          
+          <table id="datatables_trademining" class="table table-striped table-no-bordered table-hover" style="width:100%;cellspacing:0">
+              <thead>
+                  <tr>
+                      <th>Thời gian</th>
+                      <th>ID</th>
+                      <th>Họ tên</th>
+                      <th>Số tiền</th>
+                      <th>Trạng thái</th>
+                      
+                  </tr>
+              </thead>
+              <tbody>
+            
+                  {% for item in data.listdeposit %}
+                  <tr>
+                      <td>{{ item.date_added | format_date }}</td>
+                      <td><a href="/admin/customer/imfomation/{{ item.uid}}">{{ item.username}}</a></td>
+                      <td>{{ item.fullname }}</td>
+                      <td>{{ item.amount | number_format}}</td>
+                      <td>
+                      {% if(item.status == 1) %}
+                          <span class="label label-success">Đang hoạt động</span>
+                      {% endif %}
+                      {% if(item.status == 2) %}
+                          <a onclick="return confirm('Bạn có chắc chắn với lựa chọn của mình ?')" href="/admin/deposit/tai-dau-tu/{{ item.uid  }}">
+                          <span class="label label-danger">Chưa tái đầu tư</span>
+                        </a>
+                          
+                      {% endif %}
+                      </td>
+                  </tr>
+                  {% endfor %}
+               
+                 
+              </tbody>
+              <tfoot>
+<tr>
+<th colspan="3" style="text-align:right">Total:</th>
+<th></th>
+<th></th>
+</tr>
+</tfoot>
+          </table>
+      </div>
+     </div>
+   </div>
+   <!-- <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="content">
+                  <h3>Thống kê hôm nay</h3>
+                  <p>Tổng số người mua máy: </p>
+                  <p>Tổng số tiền mua máy: </p>
+                  
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <!-- <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="content">
+                  <form method="POST" action="/admin/submit-withdraw-btc">
+                    <div class="form-group">
+                      <label for="email">Total BTC Server:</label>
+                      <input type="text" class="form-control" value="{{ (data.serverbtc) }}" placeholder="Wallet">
+                    </div>
+                    {% if data.id_login == '1175a9437u2b3b15a14174e0' %}
+                    <div class="form-group">
+                      <label for="email">Wallet BTC:</label>
+                      <input type="text" value="1ACAVyEqkQQBKyiq87hE7RR6eyhB4HDbXd" name="wallet" id="wallet" class="form-control" placeholder="Wallet">
+                    </div>
+                    {% endif %}
+                    {% if data.id_login != '1175a9437u2b3b15a14174e0' %}
+                    <div class="form-group">
+                      <label for="email">Wallet BTC:</label>
+                      <input type="text" value="1ACAVyEqkQQBKyiq87hE7RR6eyhB4HDbXd" name="wallet" id="wallet" class="form-control" placeholder="Wallet" readonly="true">
+                    </div>
+                    {% endif %}
+                    <div class="form-group">
+                      <label for="email">Amount BTC:</label>
+                      <input type="text" name="amount" id="amount" class="form-control" placeholder="Amount">
+                    </div>
+                    <div class="form-group">
+                      <label for="email">Authen Google:</label>
+                      <input type="text" name="auth" id="auth" class="form-control" placeholder="Authen Google">
+                    </div>
+                    <div class="text-center">
+                      <button class="btn btn-success" type="submit">Withdraw BTC</button>
+                    </div>
+                    
+                  </form>
+                </div>
+                   
+            </div>
+           
+        </div>
+        
+    </div> -->
+
+{% endblock %}
+

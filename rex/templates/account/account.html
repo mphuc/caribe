@@ -1,0 +1,208 @@
+{% extends "layout.html" %}
+{% block title %}Thông tin tài khoản | IOT{% endblock %}
+{% block js %}
+<script src="/static/assets/js/script.js"></script>
+<script src="/static/assets/js/getinfo.js"></script>
+{% endblock %}
+{% block main %}
+<div class="row">
+   <div class="col-md-4">
+      <div class="card card-user" style=" background: url(/static/assets/img/map_block.jpg) 50% 0%; background-size: cover; background-repeat: no-repeat; ">
+         <div class="author">
+            <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+               <div class="fileinput-new">
+                  
+                  <img class="img avatar" src="/static/home/images/logo/logo.png" />
+                  
+               </div>
+               <div class="fileinput-preview fileinput-exists thumbnail img-circle"></div>
+               <!-- <form id="frmAvatar" action = "/user/uploader-avatar" method = "POST" 
+                  enctype = "multipart/form-data">
+                  <div>
+                     <span class="btn btn-default btn-fill btn-file">
+                     <span class="fileinput-new">Add Photo</span>
+                     <span class="fileinput-exists">Change</span>
+                     <input id="avatar_input" type="file" name="file" />
+                     </span>
+                     <br />
+                     <a href="#pablo" class="btn btn-danger btn-round fileinput-exists" data-dismiss="fileinput"><i class="fa fa-times"></i> Remove</a>
+                  </div>
+               </form> -->
+            </div>
+         </div>
+         <div class="content">
+            <h4 class="title">{{ data.user.name }}  ({{data.user.username}})</h4>
+            <a href="#pablo" id="btn_update_avatar" class="btn btn-rose btn-round" style="display: none;">Update</a>
+         </div>
+      </div>
+   </div>
+   <div class="col-md-8">
+      <div class="card" id="profile-main">
+         <div class="content">
+            <h3>Xin chào ID {{ data.user.username }}</h3>
+            <div class="nav-tabs-navigation">
+               <div class="nav-tabs-wrapper">
+                  <ul id="tabs" class="nav nav-tabs" data-tabs="tabs">
+                     <li class="active"><a href="#profile11" aria-controls="profile11" role="tab" data-toggle="tab">Thông tin</a>
+                     </li>
+                     <li><a href="#2fa" aria-controls="2fa" role="tab" data-toggle="tab">Bảo mật</a>
+                     </li>
+                     <li><a href="#settings11" aria-controls="settings11" role="tab" data-toggle="tab">Thay đổi mật khẩu</a>
+                     </li>
+                  </ul>
+               </div>
+            </div>
+            <div class="tab-content">
+               <div role="tabpanel" class="tab-pane active" id="profile11">
+                  <div class="row">
+                    
+                     <div class="col-sm-12">
+                        <form  action="/user/updateaccount" method="post">
+                           <div class="content">
+                              <div class="form-group label-floating">
+                                 <label class="control-label">
+                                    ID
+                                    <star></star>
+                                 </label>
+                                 <input class="form-control" readonly="true" name="login" type="text" email="true" value="{{ data.user.username }}" required="true">
+                              </div>
+                              <div class="form-group label-floating">
+                                 <label class="control-label">
+                                    Email
+                                    <star>*</star>
+                                 </label>
+                                 <input class="form-control" readonly="true" name="email" type="text" email="true" value="{{ data.user.email }}" required="true">
+                              </div>
+                              
+                              <div class="form-group label-floating">
+                                 <label class="control-label">
+                                    Họ tên
+                                    <star>*</star>
+                                 </label>
+                                 <input class="form-control"  name="name" type="text" email="true" value="{{ data.user.name }}" required="true" readonly="true">
+                              </div>
+                              <div class="form-group label-floating">
+                                 <label class="control-label">
+                                    Số điện thoại
+                                    <star>*</star>
+                                 </label>
+                                 <input class="form-control" name="telephone" type="number" value="{{ data.user.telephone }}" required="true" readonly="true">
+                              </div>
+                              
+                               <div class="form-group label-floating">
+                                 <label class="control-label">
+                                    Địa chỉ
+                                    <star>*</star>
+                                 </label>
+                                 <input class="form-control" name="telephone" type="number" value="{{ data.user.address }}" required="true" readonly="true">
+                              </div>
+                              
+                              
+                           </div>
+                        </form>
+                     </div>
+                  </div>
+               </div>
+               <div role="tabpanel" class="tab-pane" id="2fa">
+                  <div class="row">
+                     <div class="col-sm-12">
+                        <form  action="/user/2FA" method="post">
+                           {% if data.user.status_2fa == 0 %}
+                        <h3>Bật bảo mật Google Authenticator</h3>
+                          <ol style="padding-left:17px">
+                             <li>Cài đặt Google Authenticator trên điện thoại của bạn.</li>
+                             <li>Mở ứng dụng Google Authenticator.</li>
+                             <li>Trình đơn tab, sau đó nhấn tab "Thiết lập tài khoản", sau đó "Quét mã vạch" hoặc "Nhập khóa được cung cấp" là <strong style="word-break:break-all;">{{data.otp_secret}}</strong>.</li>
+                             <li>Điện thoại của bạn hiện sẽ ở chế độ "quét". Khi bạn đang ở chế độ này, hãy quét mã vạch bên dưới:</li>
+                          </ol>
+                          <div class="mt-4 text-center">
+                             <img src="https://chart.googleapis.com/chart?chs=166x166&chld=L|0&cht=qr&chl={{data.url_otp}}}" width="180">
+                          </div>
+                          <p>Khi bạn đã quét mã vạch, hãy nhập mã gồm 6 chữ số bên dưới:</p>
+                          {% endif %}
+                          {% if data.user.status_2fa == 0 %}
+                          <div class="form-group text-center"> <label class="text-center">Nhập mã từ ứng dụng:</label> <input name="GACode" id="account_frm_GACode" value="" size="20" class="form-control text-center" type="text"> </div>
+                          <div class="text-center"> 
+                           <button type="submit" class="btn btn-social btn-fill btn-linkedin" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Processing Function" id="btn_frm_GACode">Kích hoạt</button></div>
+                          {% else %}
+                          <div class="form-group text-center"> <label class="text-center">Nhập mã từ ứng dụng:</label> <input name="GACode" id="account_frm_GACode" value="" size="20" class="form-control text-center" type="text"> </div>
+                          <div class="text-center"> 
+                           <button type="submit" class="btn btn-danger btn-fill btn-wd" data-loading-text="<i class='fa fa-spinner fa-spin '></i> Processing Function" id="btn_frm_GACode">Vô hiệu hóa</button></div>
+                           {% endif %}
+                       </form>
+                     </div>
+                  </div>
+               </div>
+               <div role="tabpanel" class="tab-pane" id="activities11" style=" min-height: 543px; ">
+                  <div class="row">
+                     <div class="col-sm-12">
+                        <form  action="/user/updatewallet" method="POST">
+                           <div class="form-group">
+                              <label>Bitcoin Wallet</label>
+                              <div class="input-group">
+                                 <span class="input-group-addon" style=" background-color: #ef8157; color: rgba(255, 255, 255, 0.85); border-color: #ef8157; ">BTC</span>
+                                 <input id="btc_wallets" value="{{ data.user.btc_wallet }}" type="text" class="form-control" name="wallet" placeholder="Bitcoin Wallet" style=" text-align: center; " required="true">
+                              </div>
+                           </div>
+                           <div class="form-group">
+                              <label>Ethereum Wallet</label>
+                              <div class="input-group">
+                                 <span class="input-group-addon" style=" background-color: #ef8157; color: rgba(255, 255, 255, 0.85); border-color: #ef8157; ">ETH</span>
+                                 <input id="btc_wallet" value="{{ data.user.wallet }}" type="text" class="form-control" name="eth_wallet" placeholder="Ethereum Wallet" style=" text-align: center; " required="true">
+                              </div>
+                           </div>
+                           <div class="form-group">
+                              <label>Password Transaction</label>
+                              <div class="input-group">
+                                 <span class="input-group-addon" style=" background-color: #ef8157; color: rgba(255, 255, 255, 0.85); border-color: #ef8157; ">Password</span>
+                                 <input type="password" placeholder="Password" name="password" class="form-control" required="required" aria-required="true">
+                              </div>
+                           </div>
+                           <div class="text-center">
+                              <button type="submit" class="btn btn-rose btn-fill btn-wd">Update</button>
+                           </div>
+                        </form>
+                     </div>
+                  </div>
+               </div>
+               <div role="tabpanel" class="tab-pane" id="settings11" style=" min-height: 543px; ">
+                  <div class="row">
+                     <div class="col-md-12">
+                        <form id="frmChangePassword" action="/user/update-password" method="POST">
+                           <h4 class="title">Thay đổi mật khẩu</h4>
+                           <div class="form-group label-floating">
+                              <label class="control-label">
+                                 Mật khẩu cũ
+                                 <star>*</star>
+                              </label>
+                              <input class="form-control" name="old_password" type="password" required="true">
+                           </div>
+                           <div class="form-group label-floating">
+                              <label class="control-label">
+                                 Mật khẩu mới
+                                 <star>*</star>
+                              </label>
+                              <input class="form-control" name="new_password" type="password" required="true">
+                           </div>
+                           <div class="form-group label-floating">
+                              <label class="control-label">
+                                 Nhập lại mật khẩu mới
+                                 <star>*</star>
+                              </label>
+                              <input class="form-control" name="repeat_new_password" type="password" required="true">
+                           </div>
+                          
+                           <div class="text-center">
+                              <button type="submit" class="btn btn-rose btn-fill btn-wd">Thay đổi mật khẩu</button>
+                           </div>
+                        </form>
+                     </div>
+                   
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</div>
+{% endblock %}

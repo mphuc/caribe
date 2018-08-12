@@ -1,0 +1,35 @@
+{% extends "layout_admin.html" %}
+{% block title %}Dash{% endblock %}
+{% block js %}
+{% endblock %}
+{% block main %}
+
+<div class="row">
+   <div class="col-md-12">
+      <div class="card">
+         <div class="content">
+         <h4 class="title pull-left">Thông tin thành viên</h4>
+            <a href="/admin/customer/add-customer" class="pull-right">
+            <button type="button" class="btn btn-success">Trở về</button>
+            </a>
+            <div class="clearfix"></div>
+            <p>ID: <b>{{data.customer['username']}}</b></p>
+            <p>Mật khẩu đăng nhập: <b>{{data.password}}</b></p>
+            <p>Họ tên: {{data.customer['name']}}</p>
+            <p>Số điện thoại: {{data.customer['telephone']}}</p>
+            <p>Email: {{data.customer['email']}}</p>
+            <p>Địa chỉ: {{data.customer['address']}}</p>
+            <p>Số CMND: {{data.customer['cmnd']}}</p>
+            <p>Ngày tháng năm sinh: {{data.customer['birthday']}}</p>
+            <p>Tên tài khoản ngân hàng: {{data.customer['account_horder']}}</p>
+            <p>Số tài khoản ngân hàng: {{data.customer['account_number']}}</p>
+            <p>Tên ngân hàng: {{data.customer['bankname']}}</p>
+            <p>Chi nhánh ngân hàng: {{data.customer['brandname']}}</p>
+            <p>Gói đầu tư: 12,990,000 VNĐ</p>
+            
+         </div>
+      </div>
+   </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,189 @@
+{% extends "layout.html" %}
+{% block title %}Trang chủ | IOT{% endblock %}
+
+{% block js %}
+
+<script src="/static/assets/js/getinfo.js"></script>
+<script src="/static/assets/js/main.js"></script>
+<script type="text/javascript">
+   $('#datatables_history').DataTable({
+            "order": [[ 1, "desc" ]],
+            "pagingType": "full_numbers",
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "All"]
+            ],
+            autoWidth: false, 
+              searching: false,
+              ordering: true, 
+              responsive: true, 
+              lengthChange: false, 
+              destroy: true,
+              paging: true, 
+              info: false
+
+        });
+</script>
+{% endblock %}
+{% block main %}
+
+
+
+
+
+<div class="row">
+  
+   
+   <div class="clearfix"></div>
+   <div class="col-md-6 col-sm-6">
+      <div class="card card-wallet" data-color="navy" style="background: linear-gradient(to right, rgb(6, 78, 87) 0%, rgb(25, 140, 156) 100%);;">
+         <div class="content">
+            <div class="row">
+               
+               <div class="clearfix"></div>
+               <div class="col-xs-12">
+                  <div class="numbers">
+                     <p>Ví trực tiếp</p>
+                     <span class="btc_balance">{{ (data.float(data.user.tructiep_wallet)) | format_number}}</span>
+                      VNĐ
+                      
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="card-footer">
+            <div class="stats">
+               <i class="ti-wallet text-warning"></i> 
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="col-md-6 col-sm-6">
+      <div class="card card-wallet" data-color="orange" style="background: linear-gradient(to right, rgb(6, 78, 87) 0%, rgb(25, 140, 156) 100%);;">
+         <div class="content">
+            <div class="row">
+               <div class="col-xs-12">
+                  <div class="numbers">
+                     <p>Ví Thưởng</p>
+                     <span class="xvg_balance">{{ (data.float(data.user.t_wallet)) | format_number}}</span> VNĐ
+                     
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="card-footer">
+            <div class="stats">
+               <i class="ti-wallet text-warning"></i> 
+            </div>
+         </div>
+      </div>
+   </div>
+   <div class="col-md-6 col-sm-6">
+      <div class="card card-wallet" data-color="lightseagreen" style="background: linear-gradient(to right, rgb(6, 78, 87) 0%, rgb(25, 140, 156) 100%);;">
+         <div class="content">
+            <div class="row">
+               <div class="col-xs-12">
+                  <div class="numbers">
+                     <p>Ví hệ thống</p>
+                     <span class="usd_balance">{{ (data.float(data.user.s_wallet)) | format_number}}</span> VNĐ 
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="card-footer">
+            <div class="stats">
+               
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <div class="col-md-6 col-sm-6">
+      <div class="card card-wallet" data-color="lightseagreen" style="background: linear-gradient(to right, rgb(6, 78, 87) 0%, rgb(25, 140, 156) 100%);;">
+         <div class="content">
+            <div class="row">
+               <div class="col-xs-12">
+                  <div class="numbers">
+                     <p>Ví toàn cầu</p>
+                     <span class="usd_balance">{{ (data.float(data.user.g_wallet)) | format_number}}</span> VNĐ 
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="card-footer">
+            <div class="stats">
+               
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <div class="col-md-6 col-sm-6">
+      <div class="card card-wallet" data-color="lightseagreen" style="background: linear-gradient(to right, rgb(6, 78, 87) 0%, rgb(25, 140, 156) 100%);;">
+         <div class="content">
+            <div class="row">
+               <div class="col-xs-12">
+                  <div class="numbers">
+                     <p>Ví cân cặp</p>
+                     <span class="usd_balance">{{ (data.float(data.user.cancap_wallet)) | format_number}}</span> VNĐ 
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="card-footer">
+            <div class="stats">
+               
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <div class="col-md-6 col-sm-6">
+      <div class="card card-wallet" data-color="lightseagreen" style="background: linear-gradient(to right, rgb(6, 78, 87) 0%, rgb(25, 140, 156) 100%);;">
+         <div class="content">
+            <div class="row">
+               <div class="col-xs-12">
+                  <div class="numbers">
+                     <p>Ví lãi hàng tháng</p>
+                     <span class="usd_balance">{{ (data.float(data.user.daily_wallet)) | format_number}}</span> VNĐ 
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="card-footer">
+            <div class="stats">
+               
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <div class="col-md-12 col-sm-12">
+      <div class="card card-wallet" data-color="lightseagreen" style="background: linear-gradient(to right, rgb(6, 78, 87) 0%, rgb(25, 140, 156) 100%);;">
+         <div class="content">
+            <div class="row">
+               <div class="col-xs-12">
+                  <div class="numbers">
+                     <p>Ví thu nhập F1</p>
+                     <span class="usd_balance">{{ (data.float(data.user.thunhapf1_wallet)) | format_number}}</span> VNĐ 
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="card-footer">
+            <div class="stats">
+               
+            </div>
+         </div>
+      </div>
+   </div>
+   
+   
+
+<div class="row" style="display: none; padding-bottom: 100px;">
+      <div class="col-md-12">
+         <div id="chartContainer" style="height: 370px; width: 100%;"></div>
+      </div>
+   </div>
+
+{% endblock %}

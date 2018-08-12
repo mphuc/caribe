@@ -1,0 +1,150 @@
+{% extends "layout_admin.html" %}
+{% block title %}Dash{% endblock %}
+{% block js %}
+	 <script type="text/javascript">
+   $('#datatables_history').DataTable({
+            "order": [[ 1, "desc" ]],
+            "pagingType": "full_numbers",
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "All"]
+            ],
+            autoWidth: false, 
+              searching: false,
+              ordering: true, 
+              responsive: true, 
+              lengthChange: false, 
+              destroy: true,
+              paging: true, 
+              info: false
+
+        });
+</script>
+    <script type="text/javascript">
+        $('#ProfitUpdate').click(function(evt) {
+            $.ajax({
+                url: "/admin/updatePercent",
+                data: {
+                    percent: $('#percent').val()
+                },
+                type: "POST",
+                success: function(data) {
+                    var data = $.parseJSON(data);
+                    data.status == 'error' ? (
+                        showNotification('top', 'right', data.message, 'danger')
+                    ) : (
+                        showNotification('top', 'right', data.message, 'success'),
+                        $('#percent').val('')
+                    )
+                }
+            });
+        });
+function showNotification(from, align, msg, type) {
+                /* type = ['','info','success','warning','danger','rose','primary'];*/
+                var color = Math.floor((Math.random() * 6) + 1);
+                $.notify({
+                    icon: "notifications",
+                    message: msg
+                }, {
+                    type: type,
+                    timer: 3000,
+                    placement: {
+                        from: from,
+                        align: align
+                    }
+                });
+            }
+
+
+            
+        </script>
+{% endblock %}
+{% block main %}
+<div class="row datatables_depoistss">
+   <div class="col-md-12">
+      <div class="card">
+         <div class="content">
+            <h4 class="title pull-left">Hoa hồng hệ thống</h4>
+           <a href="/admin/commision-system-history" class="pull-left">
+            <button type="button" class="btn btn-success"  style="margin-top: 5px; margin-left: 5px;">Lịch sử</button>
+            </a>
+            <div class="clearfix"></div>
+  <div class="col-md-8">
+               <div class="input-group input-daterange">
+                  <input type="text" id="min-date" class="form-control date-range-filter" data-date-format="yyyy-mm-dd" placeholder="Từ ngày :">
+                  <div class="input-group-addon">Đến</div>
+                  <input type="text" id="max-date" class="form-control date-range-filter" data-date-format="yyyy-mm-dd" placeholder="Đến ngày :">
+               </div>
+            </div>
+            <div class="col-md-4">
+               
+            </div>
+
+            <div class="material-datatables">
+               <table id="datatables_depoistss" class="table table-striped table-no-bordered table-hover" style="width:100%;cellspacing:0">
+                  <thead>
+                     <tr>
+                        <th>Thời gian tạo</th>
+
+                         <th>ID</th>
+                        <th>Họ tên</th>
+                       
+                        <th>Số điện thoại</th>
+                        <th>Cấp bậc</th>
+                        <th>Số tiền nhận</th>
+                        <th>Xác nhận trả</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     {% if data.history %}
+                     {% for item in data.history %}
+                     <tr>
+                        <td>{{ item.creation | format_date }}</td>
+                        <td>{{ item.username }}</td>
+                        <td>{{ item.name }} </td>
+                        <td>{{ item.telephone }} </td>
+                        <td>
+                          {% if(item.level == 1) %}
+                             <span class="label label-warning">Trưởng phòng</span>
+                         {% endif %}
+                         {% if(item.level == 2) %}
+                             <span class="label label-primary">Phó giám đốc</span>
+                         {% endif %}
+                         {% if(item.level == 3) %}
+                             <span class="label label-success">Giám đốc</span>
+                         {% endif %}
+                         {% if(item.level == 4) %}
+                             <span class="label label-info">Giám đốc khu vực</span>
+                         {% endif %}
+                         {% if(item.level == 0) %}
+                             <span class="label label-default">Chưa có</span>
+                         {% endif %}
+                        </td>
+                        <td>
+                          {{ (((item.total_left) + (item.total_right))/100) | format_number }}
+                        </td>
+                        <td>
+                          <a onclick="return confirm('Bạn có chắc chắn với lựa chọn của mình ?')" href="/admin/commision-system-submit/{{ item._id  }}">
+                            <span class="label label-danger">Xác nhận thanh toán</span>
+                          </a>
+                        </td>
+                     </tr>
+                     {% endfor %}
+                     {% endif %}
+                  </tbody>
+                  <tfoot>
+            <tr>
+                <th colspan="5" style="text-align:right">Total:</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </tfoot>
+               </table>
+            </div>
+         <!-- end content-->
+      </div>
+      <!--  end card  -->
+   </div>
+   <!-- end col-md-12 -->
+</div>
+{% endblock %}

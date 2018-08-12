@@ -1,0 +1,43 @@
+{% extends "layout_admin.html" %}
+{% block title %}Dash{% endblock %}
+{% block js %}
+{% endblock %}
+{% block main %}
+
+<div class="row">
+   <div class="col-md-12 ">
+      <div class="card">
+         <div class="content">
+         <h4 class="title pull-left">Thay đổi ngày</h4>
+            <a href="/admin/deposit" class="pull-right">
+            <button type="button" class="btn btn-success">Trở về</button>
+            </a>
+            <div class="clearfix"></div>
+
+            <form method="POST" action="/admin/deposit/thay-doi-ngay-submit/{{data.deposit._id}}" class="col-md-6 col-md-push-3">    
+                <div class="col-md-12">
+                  <div class="">
+                      <div class="form-group">
+                        <label for="email">Ngày thay đổi</label>
+                        <div class="">
+                        <input type="text"  class="form-control date-range-filter" data-date-format="dd-mm-yyyy" name="date_added" value="{{data.deposit.date_added}}" placeholder="Ngày tạo gói">
+                        <p style="color: red">Định dạng ngày: Năm-Tháng-Ngày Giờ:Phút:Giây</p>
+                     </div>
+                      </div>
+
+                  </div>
+                 
+                </div>
+                <div class="col-md-12">
+                    <div class="text-center">
+                      <button class="btn btn-success" onclick="return confirm('Bạn có chắc chắn với lựa chọn của mình ?')" type="submit">Thay đổi ngàyTrở về</button>
+                    </div>
+                </div>
+            </form>
+            <div class="clearfix" style="margin-bottom: 50px; float: left;width: 100%"></div>
+         </div>
+      </div>
+   </div>
+</div>
+
+{% endblock %}

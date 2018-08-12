@@ -1,0 +1,131 @@
+{% extends "layout_admin.html" %}
+{% block title %}Dash{% endblock %}
+{% block js %}
+	 <script type="text/javascript">
+   $('#datatables_history').DataTable({
+            "order": [[ 1, "desc" ]],
+            "pagingType": "full_numbers",
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "All"]
+            ],
+            autoWidth: false, 
+              searching: false,
+              ordering: true, 
+              responsive: true, 
+              lengthChange: false, 
+              destroy: true,
+              paging: true, 
+              info: false
+
+        });
+</script>
+    <script type="text/javascript">
+        $('#ProfitUpdate').click(function(evt) {
+            $.ajax({
+                url: "/admin/updatePercent",
+                data: {
+                    percent: $('#percent').val()
+                },
+                type: "POST",
+                success: function(data) {
+                    var data = $.parseJSON(data);
+                    data.status == 'error' ? (
+                        showNotification('top', 'right', data.message, 'danger')
+                    ) : (
+                        showNotification('top', 'right', data.message, 'success'),
+                        $('#percent').val('')
+                    )
+                }
+            });
+        });
+function showNotification(from, align, msg, type) {
+                /* type = ['','info','success','warning','danger','rose','primary'];*/
+                var color = Math.floor((Math.random() * 6) + 1);
+                $.notify({
+                    icon: "notifications",
+                    message: msg
+                }, {
+                    type: type,
+                    timer: 3000,
+                    placement: {
+                        from: from,
+                        align: align
+                    }
+                });
+            }
+
+
+            
+        </script>
+{% endblock %}
+{% block main %}
+<div class="row">
+   <div class="col-md-12">
+      <div class="card">
+         <div class="content">
+            <h4 class="title">Lịch sử thưởng thêm</h4>
+           <!--  <div class="toolbar">
+               <div class="input-group">
+                  <input class="form-control" id="percent" name="percent" type="text">
+                  <span class="input-group-addon btn btn-dashboard" id="ProfitUpdate">Update</span>
+               </div>
+            </div> -->
+            
+ <div class="col-md-8">
+               <div class="input-group input-daterange">
+                  <input type="text" id="min-date" class="form-control date-range-filter" data-date-format="yyyy-mm-dd" placeholder="Từ ngày :">
+                  <div class="input-group-addon">Đến</div>
+                  <input type="text" id="max-date" class="form-control date-range-filter" data-date-format="yyyy-mm-dd" placeholder="Đến ngày :">
+               </div>
+            </div>
+            <div class="col-md-4">
+               
+            </div>
+
+
+            <div class="material-datatables">
+               <table id="datatables_depoist" class="table table-striped table-no-bordered table-hover" style="width:100%;cellspacing:0">
+                  <thead>
+                     <tr>
+                        <th>Thời gian</th>
+
+                         <th>ID</th>
+                         <th>Họ tên</th>
+                        <th>Số tiền</th>
+                       
+                        
+                        <th>Mô tả</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     {% if data.query %}
+                     {% for item in data.query %}
+                     <tr>
+                        <td>{{ item.date_added | format_date }}</td>
+                        <td><a href="/admin/customer/imfomation/{{ item.customer_id}}">{{ item.username}}</a></td>
+                        <td>{{ item.fullname }}</td>
+                        <td>{{ item.amount | format_number }} </td>
+                        
+                        
+                        <td>{{ item.detail  }}</td>
+                     </tr>
+                     {% endfor %}
+                     {% endif %}
+                  </tbody>
+                  <tfoot>
+            <tr>
+                <th colspan="3" style="text-align:right">Total:</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </tfoot>
+               </table>
+            </div>
+         <!-- end content-->
+      </div>
+      <!--  end card  -->
+   </div>
+   <!-- end col-md-12 -->
+</div>
+{% endblock %}

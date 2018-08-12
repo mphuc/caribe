@@ -1,0 +1,56 @@
+{% extends "layout_admin.html" %}
+{% block title %}Tính hoa hồng{% endblock %}
+
+{% block main %}
+<div class="row datatables_depoist">
+   <div class="col-md-12">
+      <div class="card">
+         <div class="content">
+            <h4 class="title pull-left">Tính hoa hồng</h4>
+            
+            <div class="clearfix" style="margin-top: 50px; float: left;width: 100%"></div>
+
+            <div class="col-md-6 text-center" style="margin-bottom: 30px;">
+              <a href="/admin/calculation-commission/referall-submit" onclick="return confirm('Bạn có chắc chắn Tính hoa hồng trực tiếp?')">
+                <button class="btn btn-success"  type="submit">Tính hoa hồng trực tiếp</button>
+              </a>
+            </div>
+
+            <div class="col-md-6 text-center" style="margin-bottom: 30px;">
+              <a href="/admin/calculation-commission/thuongthem-submit" onclick="return confirm('Bạn có chắc chắn Tính hoa hồng thưởng thêm?')">
+                <button class="btn btn-success"  type="submit">Tính hoa hồng thưởng thêm</button>
+              </a>
+            </div>
+
+
+            <div class="col-md-6 text-center" style="margin-bottom: 30px;">
+              <a href="/admin/calculation-commission/system-submit" onclick="return confirm('Bạn có chắc chắn Tính hoa hồng hệ thống?')">
+                <button class="btn btn-success"  type="submit">Tính hoa hồng hệ thống</button>
+              </a>
+            </div>
+
+            <div class="col-md-6 text-center" style="margin-bottom: 30px;">
+              <a href="/admin/calculation-commission/global-submit" onclick="return confirm('Bạn có chắc chắn Tính hoa hồng Toàn cầu?')">
+                <button class="btn btn-success"  type="submit">Tính hoa hồng Toàn cầu</button>
+              </a>
+            </div>
+            <div class="col-md-6 text-center" style="margin-bottom: 30px;">
+              <a href="/admin/calculation-commission/cancap-submit" onclick="return confirm('Bạn có chắc chắn Tính Thu nhập F1?')">
+                <button class="btn btn-success"  type="submit">Tính cân cặp</button>
+              </a>
+            </div>
+            <div class="col-md-6 text-center" style="margin-bottom: 30px;">
+              <a href="/admin/calculation-commission/thunhapf1-submit" onclick="return confirm('Bạn có chắc chắn Tính Thu nhập F1?')">
+                <button class="btn btn-success"  type="submit">Tính Thu nhập F1</button>
+              </a>
+            </div>
+            <div class="clearfix"></div>
+            <p style="color: red">Lưu ý: Hoa hồng chỉ chốt vào ngày cố định của tháng. <b>"Tính thu nhập"</b> Sẽ được tính cuối cùng.</p>
+
+
+           
+          
+      </div>
+   </div>
+</div>
+{% endblock %}

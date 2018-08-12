@@ -1,0 +1,8 @@
+venv
+*.pyc
+TEMP
+.idea/
+app.py
+./app.py
+./rex/setting.py
+setting.py

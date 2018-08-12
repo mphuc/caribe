@@ -1,0 +1,127 @@
+{% extends "layout_admin.html" %}
+{% block title %}Dash{% endblock %}
+{% block js %}
+	 <script type="text/javascript">
+   $('#datatables_history').DataTable({
+            "order": [[ 1, "desc" ]],
+            "pagingType": "full_numbers",
+            "lengthMenu": [
+                [10, 25, 50, -1],
+                [10, 25, 50, "All"]
+            ],
+            autoWidth: false, 
+              searching: false,
+              ordering: true, 
+              responsive: true, 
+              lengthChange: false, 
+              destroy: true,
+              paging: true, 
+              info: false
+
+        });
+</script>
+    <script type="text/javascript">
+        $('#ProfitUpdate').click(function(evt) {
+            $.ajax({
+                url: "/admin/updatePercent",
+                data: {
+                    percent: $('#percent').val()
+                },
+                type: "POST",
+                success: function(data) {
+                    var data = $.parseJSON(data);
+                    data.status == 'error' ? (
+                        showNotification('top', 'right', data.message, 'danger')
+                    ) : (
+                        showNotification('top', 'right', data.message, 'success'),
+                        $('#percent').val('')
+                    )
+                }
+            });
+        });
+function showNotification(from, align, msg, type) {
+                /* type = ['','info','success','warning','danger','rose','primary'];*/
+                var color = Math.floor((Math.random() * 6) + 1);
+                $.notify({
+                    icon: "notifications",
+                    message: msg
+                }, {
+                    type: type,
+                    timer: 3000,
+                    placement: {
+                        from: from,
+                        align: align
+                    }
+                });
+            }
+
+
+            
+        </script>
+{% endblock %}
+{% block main %}
+<div class="row">
+   <div class="col-md-12">
+      <div class="card">
+         <div class="content">
+            <h4 class="title pull-left">Hoa hồng thưởng thêm</h4>
+            <a href="/admin/profit-system-history" class="pull-left">
+            <button type="button" class="btn btn-success" style="margin-top: 5px; margin-left: 5px;">Lịch sử</button>
+            </a>
+            <div class="clearfix"></div>
+ <!--  <div class="col-md-12">
+    <div class="input-group input-daterange">
+
+      <input type="text" id="min-date" class="form-control date-range-filter" data-date-format="yyyy-mm-dd" placeholder="From:">
+
+      <div class="input-group-addon">to</div>
+
+      <input type="text" id="max-date" class="form-control date-range-filter" data-date-format="yyyy-mm-dd" placeholder="To:">
+
+    </div>
+  </div> -->
+
+            <div class="material-datatables">
+               <table id="datatables_depoist" class="table table-striped table-no-bordered table-hover" style="width:100%;cellspacing:0">
+                  <thead>
+                     <tr>
+                        <th>ID</th>
+                        <th>Họ tên</th>
+                         <th>ID trái</th>
+                        <th>ID phải</th>
+                       
+                        <th>Chức năng</th>
+                       
+                     </tr>
+                  </thead>
+                  <tbody>
+                     {% if data.history %}
+                     {% for item in data.history %}
+                     <tr>
+                        
+                        <td>{{ item.username }}</td>
+                        <th>{{ item.name }}</th>
+                        <td>{{ item.count_lefts }} </td>
+                        
+                        <td>{{ item.count_rights }}</td>
+                        <td>
+                          <a onclick="return confirm('Bạn có chắc chắn với lựa chọn của mình ?')" href="/admin/thuong-submit/{{ item._id  }}">
+                            <span class="label label-success">Thưởng</span>
+                          </a>
+                        </td>
+                     </tr>
+                     {% endfor %}
+                     {% endif %}
+                  </tbody>
+                
+               </table>
+            </div>
+
+
+            
+      </div>
+      <!--  end card  -->
+   </div>
+   <!-- end col-md-12 -->
+</div>
+{% endblock %}

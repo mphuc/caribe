@@ -1,0 +1,8 @@
+body .wrapper {
+  background: #003769;
+}
+.perfect-scrollbar-off .sidebar .sidebar-wrapper{
+    overflow: auto;
+    background: #198c9c;
+    z-index: 9999;
+}
