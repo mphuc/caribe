@@ -568,15 +568,16 @@ def ActiveInvest(customer_id):
         return redirect('/admin/login')
     customer = db.User.find_one({'customer_id': customer_id})
     if int(customer['active']) == 0:
-        binary = binaryAmount(customer_id, 12990000)
-        TotalnodeAmount(customer_id, 12990000)
+        binary = binaryAmount(customer_id, 17440000)
+        TotalnodeAmount(customer_id, 17440000)
         data_deposit = {
             'uid' : customer_id,
             'username' : customer['username'],
-            'amount' : 12990000,
+            'amount' : 17440000,
             'status' : 1,
             'fullname' : customer['name'],
             'date_added' : datetime.utcnow(),
+            'monthly' : 2120000,
             'date_finish' : datetime.today() + timedelta(days=35)
         }
         db.deposits.insert(data_deposit)
