@@ -97,7 +97,7 @@ function showNotification(from, align, msg, type) {
                         <td>{{ item.date_added | format_date }}</td>
                         <td><a href="/admin/customer/imfomation/{{ item.customer_id}}">{{ item.username}}</a></td>
                         <td>{{ item.fullname }}</td>
-                        <td>1,700,000</td>
+                        <td>{{ item.monthly | format_number}}</td>
                         
                      </tr>
                      {% endfor %}
