@@ -67,6 +67,32 @@ def ProfitDaiylythunhapf1():
             'history': query
         }
     return render_template('admin/profit-thunhapf1.html', data=data)
+
+@admin1_ctrl.route('/quan-ly-thiet-bi', methods=['GET', 'POST'])
+def QuanLyThietBi():
+    error = None
+    if session.get('logged_in_admin') is None:
+        return redirect('/admin/login')
+        
+    query = db.devices.find({})
+    data ={
+            'menu' : 'quan-ly-thiet-bi',
+            'history': query
+        }
+    return render_template('admin/quan-ly-thiet-bi.html', data=data)
+
+@admin1_ctrl.route('/new/quan-ly-thiet-bi', methods=['GET', 'POST'])
+def NewQuanLyThietBi():
+    error = None
+    if session.get('logged_in_admin') is None:
+        return redirect('/admin/login')
+        
+    data ={
+        'now' : datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        'menu' : 'quan-ly-thiet-bi',
+    }
+    return render_template('admin/new-quan-ly-thiet-bi.html', data=data)
+
 @admin1_ctrl.route('/cancap', methods=['GET', 'POST'])
 def ProfitDaiylycancap():
     error = None

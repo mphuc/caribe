@@ -1391,3 +1391,86 @@ def newsupporReplyt():
                 return redirect('/admin/support/'+str(sp_id))    
 
     return redirect('/admin/support/'+str(sp_id))
+
+
+
+@admin_ctrl.route('/quan-ly-thiet-bi-submit', methods=['GET', 'POST'])
+def QuanlythietbiSubmit():
+    error = None
+    if session.get('logged_in_admin') is None:
+        return redirect('/admin/login')
+
+    if request.method == 'POST':
+
+        fullname = request.form['fullname']
+        
+        address = request.form['address']
+        telephone = request.form['telephone']
+        description = request.form['description']
+        date_added = request.form['date_added']
+        profit = request.form['profit']
+        datas = {
+            'fullname': fullname,
+            'telephone' : telephone,
+            'address':address,
+            'profit' : float(profit),
+            'description' : description,
+            'date_added': datetime.strptime(date_added, '%Y-%m-%d %H:%M:%S'),
+            'date_finish' : datetime.strptime(date_added, '%Y-%m-%d %H:%M:%S') + timedelta(days=30)
+        }
+        db.devices.insert(datas)
+        return redirect('/admin/quan-ly-thiet-bi')
+    else:
+        
+        return redirect('/admin/quan-ly-thiet-bi')
+
+
+@admin_ctrl.route('/remove/quan-ly-thiet-bi/<ids>', methods=['GET', 'POST'])
+def RemoveQuanLyThietBi(ids):
+    if session.get(u'logged_in_admin') is None:
+        return redirect('/admin/login')
+    devices = db.devices.remove({'_id': ObjectId(ids)})
+
+    return redirect('/admin/quan-ly-thiet-bi')
+
+@admin_ctrl.route('/edit/quan-ly-thiet-bi/<ids>', methods=['GET', 'POST'])
+def EditQuanLyThietBi(ids):
+    if session.get(u'logged_in_admin') is None:
+        return redirect('/admin/login')
+    devices = db.devices.find_one({'_id': ObjectId(ids)})
+    data ={
+        'ids' : ids,
+        'menu' : 'quan-ly-thiet-bi',
+        'history': devices
+    }
+    return render_template('admin/edit-quan-ly-thiet-bi.html', data=data)
+
+
+@admin_ctrl.route('/edit-quan-ly-thiet-bi-submit/<ids>', methods=['GET', 'POST'])
+def EditQuanlythietbiSubmit(ids):
+    error = None
+    if session.get('logged_in_admin') is None:
+        return redirect('/admin/login')
+
+    if request.method == 'POST':
+
+        fullname = request.form['fullname']
+        
+        address = request.form['address']
+        telephone = request.form['telephone']
+        description = request.form['description']
+        date_added = request.form['date_added']
+        profit = request.form['profit']
+        
+        db.devices.update({'_id' : ObjectId(ids)},{'$set' : {'fullname': fullname,
+            'telephone' : telephone,
+            'address':address,
+            'profit' : float(profit),
+            'description' : description,
+            'date_added': datetime.strptime(date_added, '%Y-%m-%d %H:%M:%S'),
+            'date_finish' : datetime.strptime(date_added, '%Y-%m-%d %H:%M:%S') + timedelta(days=30)}
+        })
+        return redirect('/admin/quan-ly-thiet-bi')
+    else:
+        
+        return redirect('/admin/quan-ly-thiet-bi')

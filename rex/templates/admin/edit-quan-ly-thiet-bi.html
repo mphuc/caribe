@@ -1,0 +1,66 @@
+{% extends "layout_admin.html" %}
+{% block title %}Dash{% endblock %}
+{% block js %}
+{% endblock %}
+{% block main %}
+
+<div class="row">
+   <div class="col-md-12">
+      <div class="card">
+         <div class="content">
+         <h4 class="title pull-left">Sửa thiết bị</h4>
+            <a href="/admin/quan-ly-thiet-bi" class="pull-right">
+            <button type="button" class="btn btn-success">Trở về</button>
+            </a>
+            <div class="clearfix"></div>
+
+            <form method="POST" action="/admin/edit-quan-ly-thiet-bi-submit/{{data.ids}}">    
+                <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="email">Họ tên:</label>
+                      <input type="text" value="{{data.history.fullname}}" required="true" class="form-control" name="fullname"  placeholder="Họ tên">
+                    </div>
+                    
+                    <div class="">
+                      <div class="form-group">
+                        <label for="email">Số điện thoại:</label>
+                        <input type="text" value="{{data.history.telephone}}" class="form-control" name="telephone" value="" >
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label for="email">Địa chỉ:</label>
+                      <input type="text" value="{{data.history.address}}" name="address" class="form-control" placeholder="Địa chỉ">
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                  <div class="">
+                      <div class="form-group">
+                        <label for="email">Ngày đăng ký</label>
+                        <div class="">
+                        <input type="text" required="true"  class="form-control date-range-filter" data-date-format="dd-mm-yyyy" name="date_added" value="{{data.history.date_added}}" placeholder="Ngày tạo gói">
+                     </div>
+                      </div>
+                  </div>
+                  <div class="form-group">
+                      <label for="email">Lợi nhuận:</label>
+                      <input type="text" name="profit" value="{{data.history.profit}}" class="form-control" placeholder="Lợi nhuận">
+                    </div>
+                  <div class="form-group">
+                      <label for="email">Mô tả:</label>
+                      <textarea name="description" value="{{data.history.description}}" style="height: 120px;" class="form-control"></textarea>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    <div class="text-center">
+                      <button class="btn btn-success" onclick="return confirm('Bạn có chắc chắn với lựa chọn của mình ?')" type="submit">Sửa thiết bị</button>
+                    </div>
+                </div>
+            </form>
+            <div class="clearfix" style="margin-bottom: 50px; float: left;width: 100%"></div>
+         </div>
+      </div>
+   </div>
+</div>
+
+{% endblock %}

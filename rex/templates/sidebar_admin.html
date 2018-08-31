@@ -250,7 +250,7 @@
             </a>
          </li>
      {% endif %} -->
-        {% if data.menu == 'thu-nhap-f1' %}
+      {% if data.menu == 'thu-nhap-f1' %}
         <li class="active">
             <a href="/admin/thu-nhap-f1">
               
@@ -277,6 +277,19 @@
             <a href="/admin/thong-ke">
                
                <p>Thống kê</p>
+            </a>
+         </li>
+     {% endif %}
+     {% if data.menu == 'quan-ly-thiet-bi' %}
+        <li class="active">
+            <a href="/admin/quan-ly-thiet-bi">
+               <p>Quản lý thiết bị</p>
+            </a>
+         </li>
+     {% else %}
+       <li>
+            <a href="/admin/quan-ly-thiet-bi">
+               <p>Quản lý thiết bị</p>
             </a>
          </li>
      {% endif %}
