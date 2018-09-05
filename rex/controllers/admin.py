@@ -39,6 +39,15 @@ def check_password(pw_hash, password):
 def set_password(password):
     return generate_password_hash(password)
 
+@admin1_ctrl.route('/tai-dau-tu/<ids>', methods=['GET', 'POST'])
+def tai_dau_tu(ids):
+    error = None
+    if session.get('logged_in_admin') is None:
+        return redirect('/admin/login')
+
+    db.users.update({ "_id" : ObjectId(ids) }, { '$set': {'total_receive' :0} })
+    return redirect('/admin/customer')
+
 @admin1_ctrl.route('/profit', methods=['GET', 'POST'])
 def ProfitDaiyly():
     error = None
