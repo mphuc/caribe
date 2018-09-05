@@ -67,15 +67,16 @@
                                   <span class="label label-default">Chưa có</span>
                               {% endif %}
                            </td>
-                           <td class="text-center"><a onclick="return confirm('Bạn có chắc chắn với lựa chọn của mình ?')" href="/admin/tai-dau-tu/{{item._id}}"> Tái đầu tư</a>
-                           <p>Đã nhận: {{item.total_receive | format_number}}</p>
-                           </td>
+                           
                            <td>
                               {% if(item.active == 0) %}
                                  <a onclick="return confirm('Bạn có chắc chắn với lựa chọn của mình ?')" href="/admin/customer/active-invest/{{item.customer_id}}">
                                   <span class="label label-success">Kích gói</span>
                                  </a>
                               {% endif %}
+                           </td>
+                           <td class="text-center"><a onclick="return confirm('Bạn có chắc chắn với lựa chọn của mình ?')" href="/admin/tai-dau-tu/{{item._id}}"> Tái đầu tư</a>
+                           <p>Đã nhận: {{item.total_receive | format_number}}</p>
                            </td>
                            <th><a href="/admin/customer/{{item._id}}"> Chỉnh sửa</a></th>
                         </tr>
