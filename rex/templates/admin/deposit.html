@@ -48,15 +48,15 @@
                                                     <td>{{ item.fullname }}</td>
                                                     <td>{{ item.amount | number_format}}</td>
                                                     <td>
-                                                    {% if(item.status == 1) %}
+                                                    <!-- {% if(item.status == 1) %} -->
                                                         <span class="label label-success">Đang hoạt động</span>
-                                                    {% endif %}
+                                                    <!-- {% endif %}
                                                     {% if(item.status == 2) %}
                                                         <a onclick="return confirm('Bạn có chắc chắn với lựa chọn của mình ?')" href="/admin/deposit/tai-dau-tu/{{ item.uid  }}">
                                                         <span class="label label-danger">Chưa tái đầu tư</span>
                                                       </a>
                                                         
-                                                    {% endif %}
+                                                    {% endif %} -->
                                                     </td>
                                                     <td>
                                                     <a  href="/admin/deposit/thay-doi-ngay/{{ item._id  }}">

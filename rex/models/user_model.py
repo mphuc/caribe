@@ -52,6 +52,8 @@ class User(Document):
         'cancap_wallet' : float,
         'tructiep_wallet' :  float,
         'thunhapf1_wallet' :  float,
+        'thuetncn_wallet' :  float,
+        'tichluy_wallet' :  float,
         'status_authen' : int,
         'authentication' : unicode,
         'total_receive' : float,
@@ -114,6 +116,8 @@ class User(Document):
         'daily_wallet' : 0,
         'cancap_wallet' : 0,
         'tructiep_wallet' : 0,
+        'thuetncn_wallet' :  0,
+        'tichluy_wallet' :  0
 
         }
     use_dot_notation = True

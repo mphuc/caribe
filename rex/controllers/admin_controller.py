@@ -97,19 +97,29 @@ def TotalnodeAmount(user_id, amount_invest):
 
 def get_receive_program(user_id,amount):
     
+    amount_receve = float(amount)*0.85
+
     customer = db.User.find_one({"customer_id" : user_id })
-    if float(amount) > 38970000 - float(customer.total_receive):
-        amount_receve = 38970000 - float(customer.total_receive)
-        customer.total_receive = 38970000
-        customer.status_re = 1
-        db.users.save(customer)
-    else:
-        
-        customer.total_receive = float(customer.total_receive) + float(amount)
-        db.users.save(customer)
-        amount_receve = amount
+
+    customer.thuetncn_wallet = float(customer.thuetncn_wallet)+(float(amount)*0.07)
+    customer.tichluy_wallet = float(customer.tichluy_wallet)+(float(amount)*0.08)
+    db.users.save(customer)
 
     return amount_receve
+
+    # customer = db.User.find_one({"customer_id" : user_id })
+    # if float(amount) > 38970000 - float(customer.total_receive):
+    #     amount_receve = 38970000 - float(customer.total_receive)
+    #     customer.total_receive = 38970000
+    #     customer.status_re = 1
+    #     db.users.save(customer)
+    # else:
+        
+    #     customer.total_receive = float(customer.total_receive) + float(amount)
+    #     db.users.save(customer)
+    #     amount_receve = amount
+
+    # return amount_receve
 def FnRefferalProgram(user_id):
     customer = db.users.find_one({"customer_id" : user_id })
     username_invest = customer['username']
@@ -531,7 +541,9 @@ def AdminAddCustomerSubmit():
             'secret_2fa':'',
             'status_2fa': 0,
             'status_re' : 0,
-            'active' : 2
+            'active' : 2,
+            'thuetncn_wallet' :  0,
+            'tichluy_wallet' :  0
         }
         add_customer(datas,p_binary,position)
 

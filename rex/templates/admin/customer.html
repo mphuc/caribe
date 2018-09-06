@@ -36,7 +36,7 @@
                         <th>Số điện thoại</th>
                         <th>Cấp bậc</th>
                         <th>Kích gói</th>
-                        <th>Tái đầu tư</th>
+                        <!-- <th>Tái đầu tư</th> -->
                         <th>Hoạt động</th>
                      </tr>
                   </thead>
@@ -75,9 +75,9 @@
                                  </a>
                               {% endif %}
                            </td>
-                           <td class="text-center"><a onclick="return confirm('Bạn có chắc chắn với lựa chọn của mình ?')" href="/admin/tai-dau-tu/{{item._id}}"> Tái đầu tư</a>
+                           <!-- <td class="text-center"><a onclick="return confirm('Bạn có chắc chắn với lựa chọn của mình ?')" href="/admin/tai-dau-tu/{{item._id}}"> Tái đầu tư</a>
                            <p>Đã nhận: {{item.total_receive | format_number}}</p>
-                           </td>
+                           </td> -->
                            <th><a href="/admin/customer/{{item._id}}"> Chỉnh sửa</a></th>
                         </tr>
                      
