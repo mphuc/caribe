@@ -25,8 +25,8 @@
         x_p += "<table class='table table-bordered'><tbody><tr>";
         x_p += "<td colspan='2'> <div align='center'>" + node.username + "</div> </td></tr>";
         x_p += "<tr><td> <div align='center'>Người bảo trợ</div> </td> <td> <div align='center'>" + node.sponsor + "</div> </td></tr>";
-        x_p += "<tr><td> <div align='center'>Doanh số trái</div> </td> <td> <div align='center'>" + node.leftPD + " USD</div> </td></tr>";
-        x_p += "<tr><td> <div align='center'>Doanh số phải</div> </td> <td> <div align='center'>" + node.rightPD + " USD</div> </td></tr>";
+        x_p += "<tr><td> <div align='center'>Doanh số trái</div> </td> <td> <div align='center'>" + node.leftPD + " VNĐ</div> </td></tr>";
+        x_p += "<tr><td> <div align='center'>Doanh số phải</div> </td> <td> <div align='center'>" + node.rightPD + " VNĐ</div> </td></tr>";
         x_p += "<tr><td> <div align='center'>Ngày tạo</div> </td> <td> <div align='center'>" + node.date_added + " </div> </td></tr>";
         x_p += "";
         x_p += "</tr>";
