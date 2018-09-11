@@ -684,7 +684,9 @@ def registersubmit_intree():
               'secret_2fa':'',
               'status_2fa': 0,
               'status_re' : 0,
-              'active' : 0
+              'active' : 0,
+              'thuetncn_wallet' :  0,
+              'tichluy_wallet' :  0
           }
           add_customer(datas,p_binary,position)
           flash({'msg':'Tạo tài khoản thành công với ID đăng nhập: '+str(username), 'type':'success'})
