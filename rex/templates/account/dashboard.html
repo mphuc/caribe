@@ -177,6 +177,46 @@
          </div>
       </div>
    </div>
+
+   <div class="col-md-6 col-sm-6">
+      <div class="card card-wallet" data-color="lightseagreen" style="background: linear-gradient(to right, rgb(6, 78, 87) 0%, rgb(25, 140, 156) 100%);;">
+         <div class="content">
+            <div class="row">
+               <div class="col-xs-12">
+                  <div class="numbers">
+                     <p>Ví tích lũy</p>
+                     <span class="usd_balance">{{ (data.float(data.user.tichluy_wallet)) | format_number}}</span> VNĐ 
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="card-footer">
+            <div class="stats">
+               
+            </div>
+         </div>
+      </div>
+   </div>
+
+   <div class="col-md-6 col-sm-6">
+      <div class="card card-wallet" data-color="lightseagreen" style="background: linear-gradient(to right, rgb(6, 78, 87) 0%, rgb(25, 140, 156) 100%);;">
+         <div class="content">
+            <div class="row">
+               <div class="col-xs-12">
+                  <div class="numbers">
+                     <p>Thuế TNCN</p>
+                     <span class="usd_balance">{{ (data.float(data.user.thuetncn_wallet)) | format_number}}</span> VNĐ 
+                  </div>
+               </div>
+            </div>
+         </div>
+         <div class="card-footer">
+            <div class="stats">
+               
+            </div>
+         </div>
+      </div>
+   </div>
    
    
 
