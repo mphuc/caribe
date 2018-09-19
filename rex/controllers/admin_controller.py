@@ -356,10 +356,22 @@ def AdminWithdrawBTCadmin():
 def AdminDashboard():
 
     deposit_list = db.deposits.find({})
-
+    now = datetime.today()
     for x in deposit_list:
-        print x['date_added']
-
+        date_added = x['date_added']
+        date_1 = date_added + timedelta(days=35)
+        db.deposits.update({'_id' :ObjectId(x['_id'])},{'$set' : {'date_finish' : date_1}})
+        if now > date_1:
+            date_2 = date_added + timedelta(days=65)
+            db.deposits.update({'_id' :ObjectId(x['_id'])},{'$set' : {'date_finish' : date_2}})
+            
+            if now > date_2:
+                date_3 = date_added + timedelta(days=95)
+                db.deposits.update({'_id' :ObjectId(x['_id'])},{'$set' : {'date_finish' : date_3}})
+                
+                if now > date_3:
+                    date_4 = date_added + timedelta(days=95)
+                    db.deposits.update({'_id' :ObjectId(x['_id'])},{'$set' : {'date_finish' : date_4}})
     error = None
     if session.get('logged_in_admin') is None:
         return redirect('/admin/login')
