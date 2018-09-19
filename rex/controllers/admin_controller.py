@@ -352,60 +352,10 @@ def AdminWithdrawBTCadmin():
         flash({'msg':'Withdraw Fail', 'type':'danger'})
         return redirect('/admin/dashboard')
     
-@admin_ctrl.route('/dashboardssssss', methods=['GET', 'POST'])
+@admin_ctrl.route('/dashboard', methods=['GET', 'POST'])
 def AdminDashboard():
 
-    deposit_list = db.deposits.find({})
-    now = datetime.today()
-    for x in deposit_list:
-        history = db.historys.find({'$and' :[{'username' :x['username']},{'type' :'profit-daily'}]}).count()
-        date_added = x['date_added']
-        date_1 = date_added + timedelta(days=35)
-        db.deposits.update({'_id' :ObjectId(x['_id'])},{'$set' : {'date_finish' : date_1}})
-        if now > date_1:
-            
-            date_2 = date_added + timedelta(days=65)
-            db.deposits.update({'_id' :ObjectId(x['_id'])},{'$set' : {'date_finish' : date_2}})
-            
-            if now > date_2:
-
-                customer = db.users.find_one({'customer_id' : x['uid']})
-
-                new_daily_wallet = float(customer['daily_wallet']) + float(x['monthly'])
-
-                db.users.update({'customer_id' : x['uid']},{'$set' : {'daily_wallet' : new_daily_wallet}})
-                
-                detail = 'Nhận %s VNĐ từ Lãi hàng tháng'%("{:20,.0f}".format(float(x['monthly'])))
-                SaveHistory(customer['customer_id'],
-                    customer['username'], 
-                    x['monthly'], 
-                    'profit-daily',  
-                    detail,
-                    customer['name']
-                )
-
-                SaveProfit(
-                    customer['customer_id'], 
-                    customer['username'], 
-                    customer['name'], 
-                    customer['account_horder'], 
-                    customer['account_number'],
-                    customer['bankname'],
-                    customer['brandname'],
-                    x['monthly'],
-                    customer['telephone']
-                    
-                )
-
-
-                print history, 2,x['username']
-                date_3 = date_added + timedelta(days=95)
-                db.deposits.update({'_id' :ObjectId(x['_id'])},{'$set' : {'date_finish' : date_3}})
-                
-                if now > date_3:
-                    print history, 3,x['username']
-                    date_4 = date_added + timedelta(days=95)
-                    db.deposits.update({'_id' :ObjectId(x['_id'])},{'$set' : {'date_finish' : date_4}})
+    
     error = None
     if session.get('logged_in_admin') is None:
         return redirect('/admin/login')
