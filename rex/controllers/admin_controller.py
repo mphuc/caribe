@@ -515,7 +515,7 @@ def AdminAddCustomerSubmit():
             'bankname' : bankname,
             'brandname' : brandname,
 
-            'creation': datetime.strptime(date_added, '%Y-%m-%d %H:%M:%S'),
+            'creation': datetime.utcnow(),
             'total_left' : 0,
             'total_right' : 0,
             'count_left' : 0,
@@ -562,8 +562,8 @@ def AdminAddCustomerSubmit():
             'status' : 1,
             'fullname' : fullname,
             'monthly' : monthly,
-            'date_added' : datetime.strptime(date_added, '%Y-%m-%d %H:%M:%S'),
-            'date_finish' : datetime.strptime(date_added, '%Y-%m-%d %H:%M:%S') + timedelta(days=35)
+            'date_added' : datetime.utcnow(),
+            'date_finish' : datetime.utcnow() + timedelta(days=35)
         }
         db.deposits.insert(data_deposit)
         FnRefferalProgram(customer_id)
@@ -878,6 +878,7 @@ def profitdaily():
 @admin_ctrl.route('/profit-daily-submit', methods=['GET', 'POST'])
 def ProfitDailySubmit():
     error = None
+    eturn redirect('/admin/login')
     if session.get('logged_in_admin') is None:
         return redirect('/admin/login')
     now = datetime.today()
