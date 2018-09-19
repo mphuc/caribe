@@ -354,6 +354,12 @@ def AdminWithdrawBTCadmin():
     
 @admin_ctrl.route('/dashboard', methods=['GET', 'POST'])
 def AdminDashboard():
+
+    deposit_list = db.deposits.find({})
+
+    for x in deposit_list:
+        print x['date_added']
+
     error = None
     if session.get('logged_in_admin') is None:
         return redirect('/admin/login')
@@ -878,7 +884,7 @@ def profitdaily():
 @admin_ctrl.route('/profit-daily-submit', methods=['GET', 'POST'])
 def ProfitDailySubmit():
     error = None
-    eturn redirect('/admin/login')
+    return redirect('/admin/login')
     if session.get('logged_in_admin') is None:
         return redirect('/admin/login')
     now = datetime.today()
